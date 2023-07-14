@@ -1,0 +1,20 @@
+#KNOCKBACK CONFIGURATION
+knockbackHorizontal: 0.64
+knockbackVertical: 1.0
+knockbackVerticalLimit: 0.36
+knockbackExtraHorizontal: 0.0
+knockbackExtraVertical: 0.0
+enable-knockback-resistance: false
+
+#Horizontal Knockback Multipliers Only
+#Dont ask for vertical ones or ur retarded
+knockbackSpeedMultiplier: 1.83
+kbspeedsprintmultiplier: 1.0
+
+
+#Damage Delay In Ticks
+#Disable this if you have other plugins Managing this.
+enable-damage-ticks: false
+max_no_damage_ticks: 20
+
+#i will add bowboosting next update bet
