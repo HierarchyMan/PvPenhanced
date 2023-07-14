@@ -1,5 +1,5 @@
 # PvPenhanced
-This is an overall pvp enhancemnent plugin FOR PAPERMC only (forks are currently not supported)
+This is an overall pvp enhancemnent plugin FOR Bukkit, Spigot and PaperMC only (forks are currently not supported)
 
 Features:
 - knockback customisation (with vertical limit and other good stuff)
