@@ -34,6 +34,7 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
     boolean netheriteKnockbackResistance;
     boolean versionHasNetherite = true;
     boolean hasShields = false;
+    private boolean fixBowBoosting;
     private DamageTicks noDamageTicksPlugin;
     HashMap<Player, Vector> playerKnockbackHashMap = new HashMap<>();
 
@@ -157,6 +158,9 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
         if (getConfig().getBoolean("enable-damage-ticks", false)) {
             noDamageTicksPlugin = new DamageTicks(getConfig());
             getServer().getPluginManager().registerEvents(noDamageTicksPlugin, this);
+        }
+        if (getConfig().getBoolean("bow-boosting-fix", false)) {
+            getServer().getPluginManager().registerEvents(new BowBoost(), this);
         }
 
         // haha this is terrible

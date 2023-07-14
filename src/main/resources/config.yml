@@ -4,12 +4,15 @@ knockbackVertical: 1.0
 knockbackVerticalLimit: 0.36
 knockbackExtraHorizontal: 0.0
 knockbackExtraVertical: 0.0
-enable-knockback-resistance: false
 
 #Horizontal Knockback Multipliers Only
 #Dont ask for vertical ones or ur retarded
-knockbackSpeedMultiplier: 1.83
+knockbackSpeedMultiplier: 1.81
 kbspeedsprintmultiplier: 1.0
+
+
+#1.16+ option i didn't bother to remove it
+enable-knockback-resistance: false
 
 
 #Damage Delay In Ticks
@@ -17,4 +20,5 @@ kbspeedsprintmultiplier: 1.0
 enable-damage-ticks: false
 max_no_damage_ticks: 20
 
-#i will add bowboosting next update bet
+#Bow Boosting fix
+bow-boosting-fix: true
