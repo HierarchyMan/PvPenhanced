@@ -4,7 +4,7 @@ main: cystol.pvp.Knockback
 authors: [cystol, 69 others]
 description: A not so simple plugin with various random customisations.
 commands:
-  pvpenhanced.reload:
+  pvpenhanced:
     description: /pvpenhanced reload - to reload the plugin
     permission: pvpenhanced.reload
 permissions:

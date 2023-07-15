@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import cystol.pvp.DamageTicks;
-
+import cystol.pvp.ConfigReloadEvent;
 import java.util.HashMap;
 
 public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
@@ -34,6 +34,9 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
     boolean netheriteKnockbackResistance;
     boolean versionHasNetherite = true;
     boolean hasShields = false;
+    boolean enableDamageTicks = getConfig().getBoolean("enable-damage-ticks");
+    boolean fixBowBoost = getConfig().getBoolean("bow-boosting-fix");
+    double DamageTicksTicks = getConfig().getDouble("max_no_damage_ticks");
     private boolean fixBowBoosting;
     private DamageTicks noDamageTicksPlugin;
     HashMap<Player, Vector> playerKnockbackHashMap = new HashMap<>();
@@ -125,17 +128,25 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            reloadConfig();
+            reloadConfigFields();
             getConfigValues();
-            sender.sendMessage(ChatColor.RED + "You have reloaded the config");
+            sender.sendMessage(ChatColor.RED + "Config Successfully Reloaded");
+            // Schedule the task to clear the playerKnockbackHashMap
+            Bukkit.getScheduler().runTaskTimer(this, () -> playerKnockbackHashMap.clear(), 1, 1);
+            sender.sendMessage(ChatColor.AQUA + "Consistent Knockback Successfully Applied");
+
             return true;
         }
 
         return false;
     }
 
-    private void getConfigValues() {
+// haha this is also terrible
+    public void getConfigValues() {
         FileConfiguration config = getConfig();
+        DamageTicksTicks = config.getDouble("max_no_damage_ticks");
+        fixBowBoost = config.getBoolean("bow-boosting-fix", false);
+        enableDamageTicks = config.getBoolean("enable-damage-ticks", false);
         knockbackHorizontal = config.getDouble("knockbackHorizontal");
         knockbackVertical = config.getDouble("knockbackVertical");
         knockbackVerticalLimit = config.getDouble("knockbackVerticalLimit");
@@ -145,9 +156,19 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
         kbspeedsprintmultiplier = config.getDouble("kbspeedsprintmultiplier");
         netheriteKnockbackResistance = config.getBoolean("enable-knockback-resistance", false) && versionHasNetherite;
     }
+    public void reloadConfigFields() {
+        reloadConfig();
+        getConfigValues();
+
+        if (noDamageTicksPlugin != null) {
+            noDamageTicksPlugin.loadConfig(getConfig());
+        }
+
+    }
 
     @Override
     public void onEnable() {
+        getServer().getPluginManager().registerEvents(new ConfigReloadEvent(), this);
         Bukkit.getPluginManager().registerEvents(this, this);
         saveDefaultConfig();
         getConfigValues();
@@ -159,9 +180,11 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
             noDamageTicksPlugin = new DamageTicks(getConfig());
             getServer().getPluginManager().registerEvents(noDamageTicksPlugin, this);
         }
+        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
         if (getConfig().getBoolean("bow-boosting-fix", false)) {
             getServer().getPluginManager().registerEvents(new BowBoost(), this);
         }
+        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
 
         // haha this is terrible
         if (Bukkit.getVersion().contains("1.7") || Bukkit.getVersion().contains("1.8") ||
@@ -170,10 +193,10 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
                 Bukkit.getVersion().contains("1.13") || Bukkit.getVersion().contains("1.14") ||
                 Bukkit.getVersion().contains("1.15"))
             versionHasNetherite = false;
-
+        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
         if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.7")) return;
         hasShields = true;
-
+        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
 
     }
 }

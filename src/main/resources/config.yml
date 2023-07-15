@@ -1,5 +1,5 @@
 #KNOCKBACK CONFIGURATION
-knockbackHorizontal: 0.64
+knockbackHorizontal: 0.625
 knockbackVertical: 1.0
 knockbackVerticalLimit: 0.36
 knockbackExtraHorizontal: 0.0
@@ -7,18 +7,19 @@ knockbackExtraVertical: 0.0
 
 #Horizontal Knockback Multipliers Only
 #Dont ask for vertical ones or ur retarded
-knockbackSpeedMultiplier: 1.81
+knockbackSpeedMultiplier: 1.87
 kbspeedsprintmultiplier: 1.0
 
 
-#1.16+ option i didn't bother to remove it
+#1.16+ option idk who uses this
 enable-knockback-resistance: false
 
 
 #Damage Delay In Ticks
 #Disable this if you have other plugins Managing this.
-enable-damage-ticks: false
+enable-damage-ticks: true
 max_no_damage_ticks: 20
 
 #Bow Boosting fix
+#requires restart or PLUGMAN RELOAD
 bow-boosting-fix: true

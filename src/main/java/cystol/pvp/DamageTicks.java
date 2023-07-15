@@ -19,7 +19,7 @@ public class DamageTicks implements Listener {
     private boolean enableDamageTicks;
 
 
-    private void loadConfig(FileConfiguration config) {
+    public void loadConfig(FileConfiguration config) {
         maxNoDamageTicks = config.getInt("max_no_damage_ticks", 3);
     }
 
