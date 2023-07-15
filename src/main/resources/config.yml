@@ -1,5 +1,5 @@
 #KNOCKBACK CONFIGURATION
-knockbackHorizontal: 0.625
+knockbackHorizontal: 0.675
 knockbackVertical: 1.0
 knockbackVerticalLimit: 0.36
 knockbackExtraHorizontal: 0.0
@@ -7,7 +7,7 @@ knockbackExtraVertical: 0.0
 
 #Horizontal Knockback Multipliers Only
 #Dont ask for vertical ones or ur retarded
-knockbackSpeedMultiplier: 1.87
+knockbackSpeedMultiplier: 1.85
 kbspeedsprintmultiplier: 1.0
 
 
@@ -23,3 +23,5 @@ max_no_damage_ticks: 20
 #Bow Boosting fix
 #requires restart or PLUGMAN RELOAD
 bow-boosting-fix: true
+bowboost-horizontal: 11
+bowboost-vertical: 1.4

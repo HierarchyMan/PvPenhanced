@@ -12,12 +12,32 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import cystol.pvp.Knockback;
 
 public class BowBoost implements Listener {
 
-    private static final double KNOCKBACK_X = 1.2D;
-    private static final double KNOCKBACK_Y = 1.0D;
-    private static final double KNOCKBACK_Z = 1.2D;
+    public double KNOCKBACK_X = 1.5D;
+    public double KNOCKBACK_Y = 1.2D;
+    public double KNOCKBACK_Z = 1.5D;
+
+    public static BowBoost create(JavaPlugin plugin) {
+        BowBoost bowBoost = new BowBoost();
+        bowBoost.loadConfig(plugin.getConfig());
+        return bowBoost;
+    }
+
+    public void loadConfig(FileConfiguration config) {
+        KNOCKBACK_X = config.getDouble("bowboost-horizontal", 1.5D);
+        KNOCKBACK_Y = config.getDouble("bowboost-vertical", 1.2D);
+        KNOCKBACK_Z = KNOCKBACK_X;
+    }
 
 
 

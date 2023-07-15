@@ -38,6 +38,7 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
     boolean fixBowBoost = getConfig().getBoolean("bow-boosting-fix");
     double DamageTicksTicks = getConfig().getDouble("max_no_damage_ticks");
     private boolean fixBowBoosting;
+    private BowBoost bowBoost;
     private DamageTicks noDamageTicksPlugin;
     HashMap<Player, Vector> playerKnockbackHashMap = new HashMap<>();
 
@@ -182,7 +183,7 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
         }
         Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
         if (getConfig().getBoolean("bow-boosting-fix", false)) {
-            getServer().getPluginManager().registerEvents(new BowBoost(), this);
+            getServer().getPluginManager().registerEvents(BowBoost.create(this), this);
         }
         Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
 
