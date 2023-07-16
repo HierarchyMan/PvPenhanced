@@ -23,9 +23,9 @@ import cystol.pvp.Knockback;
 
 public class BowBoost implements Listener {
 
-    public double KNOCKBACK_X = 1.5D;
-    public double KNOCKBACK_Y = 1.2D;
-    public double KNOCKBACK_Z = 1.5D;
+    public double KNOCKBACK_X;
+    public double KNOCKBACK_Y;
+    public double KNOCKBACK_Z;
 
     public static BowBoost create(JavaPlugin plugin) {
         BowBoost bowBoost = new BowBoost();
@@ -34,8 +34,8 @@ public class BowBoost implements Listener {
     }
 
     public void loadConfig(FileConfiguration config) {
-        KNOCKBACK_X = config.getDouble("bowboost-horizontal", 1.5D);
-        KNOCKBACK_Y = config.getDouble("bowboost-vertical", 1.2D);
+        KNOCKBACK_X = config.getDouble("bowboost-horizontal", 1.2D);
+        KNOCKBACK_Y = config.getDouble("bowboost-vertical", 1.0D);
         KNOCKBACK_Z = KNOCKBACK_X;
     }
 

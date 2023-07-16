@@ -3,6 +3,7 @@ package cystol.pvp;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -19,8 +20,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
-import cystol.pvp.DamageTicks;
-import cystol.pvp.ConfigReloadEvent;
+
 import java.util.HashMap;
 
 public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
@@ -34,14 +34,13 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
     boolean netheriteKnockbackResistance;
     boolean versionHasNetherite = true;
     boolean hasShields = false;
-    boolean enableDamageTicks = getConfig().getBoolean("enable-damage-ticks");
-    boolean fixBowBoost = getConfig().getBoolean("bow-boosting-fix");
-    double DamageTicksTicks = getConfig().getDouble("max_no_damage_ticks");
-    private boolean fixBowBoosting;
-    private BowBoost bowBoost;
-    private DamageTicks noDamageTicksPlugin;
+    boolean enableDamageTicks;
+    boolean fixBowBoost;
+    double DamageTicksTicks;
+    public BowBoost bowBoost;
+    public DamageTicks noDamageTicksPlugin;
+    public PotOptimize potOptimize;
     HashMap<Player, Vector> playerKnockbackHashMap = new HashMap<>();
-
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerVelocityEvent(PlayerVelocityEvent event) {
@@ -96,7 +95,7 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
             int i = attacker.getItemInHand().getEnchantmentLevel(Enchantment.KNOCKBACK);
             if (attacker.isSprinting()) ++i;
 
-            if (playerVelocity.getY() > knockbackVerticalLimit)
+            if (playerVelocity.getY() > knockbackVerticalLimit && playerVelocity.getY() == knockbackVerticalLimit);
                 playerVelocity.setY(knockbackVerticalLimit);
 
             // Apply bonus knockback
@@ -130,7 +129,6 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             reloadConfigFields();
-            getConfigValues();
             sender.sendMessage(ChatColor.RED + "Config Successfully Reloaded");
             // Schedule the task to clear the playerKnockbackHashMap
             Bukkit.getScheduler().runTaskTimer(this, () -> playerKnockbackHashMap.clear(), 1, 1);
@@ -142,7 +140,6 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
         return false;
     }
 
-// haha this is also terrible
     public void getConfigValues() {
         FileConfiguration config = getConfig();
         DamageTicksTicks = config.getDouble("max_no_damage_ticks");
@@ -156,38 +153,48 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
         knockbackSpeedMultiplier = config.getDouble("knockbackSpeedMultiplier");
         kbspeedsprintmultiplier = config.getDouble("kbspeedsprintmultiplier");
         netheriteKnockbackResistance = config.getBoolean("enable-knockback-resistance", false) && versionHasNetherite;
+
+        HandlerList.unregisterAll((Listener) this);
+        getServer().getPluginManager().registerEvents(this, this);
+        if (enableDamageTicks) {
+            noDamageTicksPlugin = new DamageTicks(getConfig());
+            getServer().getPluginManager().registerEvents(noDamageTicksPlugin, this);}
+        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
+
+        if (fixBowBoost) {
+            bowBoost = BowBoost.create(this);
+            getServer().getPluginManager().registerEvents(bowBoost, this);
+            Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
+        }
+
+        if (getConfig().getBoolean("optimize-pot-throw", false)) {
+            potOptimize = new PotOptimize();
+            getServer().getPluginManager().registerEvents(potOptimize, this);
+            Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
+        }
+
     }
+
     public void reloadConfigFields() {
         reloadConfig();
         getConfigValues();
 
         if (noDamageTicksPlugin != null) {
             noDamageTicksPlugin.loadConfig(getConfig());
-        }
+            Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
 
+        }
     }
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(new ConfigReloadEvent(), this);
+        reloadConfigFields();
+        reloadConfig();
+        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
         Bukkit.getPluginManager().registerEvents(this, this);
         saveDefaultConfig();
-        getConfigValues();
-
-
-        // Hack around issue with knockback in wrong tick
+        Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
-        if (getConfig().getBoolean("enable-damage-ticks", false)) {
-            noDamageTicksPlugin = new DamageTicks(getConfig());
-            getServer().getPluginManager().registerEvents(noDamageTicksPlugin, this);
-        }
-        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
-        if (getConfig().getBoolean("bow-boosting-fix", false)) {
-            getServer().getPluginManager().registerEvents(BowBoost.create(this), this);
-        }
-        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
-
-        // haha this is terrible
         if (Bukkit.getVersion().contains("1.7") || Bukkit.getVersion().contains("1.8") ||
                 Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10") ||
                 Bukkit.getVersion().contains("1.11") || Bukkit.getVersion().contains("1.12") ||
@@ -197,7 +204,33 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
         Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
         if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.7")) return;
         hasShields = true;
+
+        getConfigValues();
+
+        Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
+        HandlerList.unregisterAll((Listener) this);
+        getServer().getPluginManager().registerEvents(this, this);
         Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
 
+        if (enableDamageTicks) {
+            noDamageTicksPlugin = new DamageTicks(getConfig());
+            getServer().getPluginManager().registerEvents(noDamageTicksPlugin, this);
+
+
+
+            if (getConfig().getBoolean("bow-boosting-fix", true)); {
+                bowBoost = BowBoost.create(this);
+                getServer().getPluginManager().registerEvents(bowBoost, this);
+            }
+
+            if (getConfig().getBoolean("optimize-pot-throw", false)) {
+                potOptimize = new PotOptimize();
+                getServer().getPluginManager().registerEvents(potOptimize, this);
+            }
+
+
+
+            // Register command executor
+        }
     }
 }

@@ -1,13 +1,13 @@
 #KNOCKBACK CONFIGURATION
-knockbackHorizontal: 0.675
-knockbackVertical: 1.0
-knockbackVerticalLimit: 0.36
+knockbackHorizontal: 0.66
+knockbackVertical: 1
+knockbackVerticalLimit: 0.355
 knockbackExtraHorizontal: 0.0
 knockbackExtraVertical: 0.0
 
 #Horizontal Knockback Multipliers Only
 #Dont ask for vertical ones or ur retarded
-knockbackSpeedMultiplier: 1.85
+knockbackSpeedMultiplier: 1.83
 kbspeedsprintmultiplier: 1.0
 
 
@@ -18,10 +18,16 @@ enable-knockback-resistance: false
 #Damage Delay In Ticks
 #Disable this if you have other plugins Managing this.
 enable-damage-ticks: true
-max_no_damage_ticks: 20
+max_no_damage_ticks: 20.5
 
 #Bow Boosting fix
 #requires restart or PLUGMAN RELOAD
 bow-boosting-fix: true
-bowboost-horizontal: 11
-bowboost-vertical: 1.4
+#this can be reloaded this /pvpenhanced reload
+#sometimes might break while reloading so dont reload the plugin IG restart the server
+bowboost-horizontal: 1.75
+bowboost-vertical: 1.25
+
+#Potion Throw optimiser
+#currently doesnt work
+optimize-pot-throw: true
