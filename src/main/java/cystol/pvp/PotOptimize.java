@@ -35,7 +35,8 @@ public class PotOptimize implements Listener {
 
                         // Set the position and velocity of the thrown potion
                         Vector direction = player.getEyeLocation().getDirection();
-                        potion.teleport(player.getLocation().add(0, 1, 0)); // Spawn 1 block above player
+                        Vector spawnOffset = direction.multiply(0.85);
+                        potion.teleport(player.getLocation().add(spawnOffset).add(0, 1, 0)); // Spawn 1 block above player
                         if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
                             player.getInventory().remove(itemInHand);
                         }
@@ -57,7 +58,8 @@ public class PotOptimize implements Listener {
 
                     // Set the position and velocity of the thrown potion
                     Vector direction = player.getEyeLocation().getDirection();
-                    potion.teleport(player.getLocation().add(0, 1, 0)); // Spawn 1 block above player
+                    Vector spawnOffset = direction.multiply(0.85);
+                    potion.teleport(player.getLocation().add(spawnOffset).add(0, 1, 0)); // Spawn 1 block above player
                     player.playSound(player.getLocation(), Sound.ENTITY_SPLASH_POTION_THROW, 1.0f, 1.0f);
                     if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
                         player.getInventory().remove(player.getItemInHand());

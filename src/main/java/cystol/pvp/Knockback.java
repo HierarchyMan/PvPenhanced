@@ -40,6 +40,7 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
     public BowBoost bowBoost;
     public DamageTicks noDamageTicksPlugin;
     public PotOptimize potOptimize;
+    public ComboKnockback combokb;
     HashMap<Player, Vector> playerKnockbackHashMap = new HashMap<>();
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
@@ -172,6 +173,8 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
             getServer().getPluginManager().registerEvents(potOptimize, this);
             Bukkit.getScheduler().runTaskTimer(this, playerKnockbackHashMap::clear, 1, 1);
         }
+        combokb = new ComboKnockback();
+        getServer().getPluginManager().registerEvents(combokb, this);
 
     }
 
@@ -227,7 +230,8 @@ public class Knockback extends JavaPlugin implements Listener, CommandExecutor {
                 potOptimize = new PotOptimize();
                 getServer().getPluginManager().registerEvents(potOptimize, this);
             }
-
+            combokb = new ComboKnockback();
+            getServer().getPluginManager().registerEvents(combokb, this);
 
 
             // Register command executor
