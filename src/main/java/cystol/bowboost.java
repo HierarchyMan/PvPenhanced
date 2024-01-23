@@ -9,13 +9,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
-public class bowboost implements Listener
-
-{
+public class bowboost implements Listener {
     private final JavaPlugin plugin;
+
     public bowboost(JavaPlugin plugin) {
         this.plugin = plugin;
     }
@@ -57,5 +55,5 @@ public class bowboost implements Listener
             }
         }
 
-}
+    }
 }

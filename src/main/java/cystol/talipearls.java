@@ -34,7 +34,6 @@ public class talipearls implements Listener {
         } else {
             final Block block = this.getBlockTali(enderLocation, player);
             if (block == null) {
-                return;
             }
             // Additional logic for handling the block
         }
@@ -157,6 +156,6 @@ public class talipearls implements Listener {
                 return null;
             }
         }
-        return (newLoc == null) ? null : newLoc;
+        return newLoc;
     }
 }

@@ -9,22 +9,22 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
-import static org.bukkit.Bukkit.getWorld;
-
 public class projectilevelocity implements Listener {
 
     private final JavaPlugin plugin;
+
     public projectilevelocity(JavaPlugin plugin) {
         this.plugin = plugin;
     }
+
     @EventHandler
     public void onProjectileThrow(ProjectileLaunchEvent event) {
         Player player = (Player) event.getEntity().getShooter();
         Entity entity = event.getEntity();
         if (entity instanceof FishHook) {
-        Vector velo = entity.getVelocity();
-        Vector velo2 = velo.multiply(plugin.getConfig().getDouble("rod.speedMultipler"));
-        entity.setVelocity(velo2);
+            Vector velo = entity.getVelocity();
+            Vector velo2 = velo.multiply(plugin.getConfig().getDouble("rod.speedMultipler"));
+            entity.setVelocity(velo2);
         }
         if (entity instanceof EnderPearl) {
             Vector velo = entity.getVelocity();
@@ -33,7 +33,7 @@ public class projectilevelocity implements Listener {
         }
         if (entity instanceof ThrownPotion) {
             Vector velo = entity.getVelocity();
-            Vector velo2 = new Vector(velo.multiply(plugin.getConfig().getDouble("PotionThrowSpeedMultiplier")).getX(),velo.getY(),velo.multiply(plugin.getConfig().getDouble("PotionThrowSpeedMultiplier")).getZ());
+            Vector velo2 = new Vector(velo.multiply(plugin.getConfig().getDouble("PotionThrowSpeedMultiplier")).getX(), velo.getY(), velo.multiply(plugin.getConfig().getDouble("PotionThrowSpeedMultiplier")).getZ());
             entity.setVelocity(velo2);
             World world = entity.getWorld();
             Location location = entity.getLocation();

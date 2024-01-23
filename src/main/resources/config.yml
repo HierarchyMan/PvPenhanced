@@ -1,23 +1,26 @@
 knockbackHorizontal: 0.4
-knockbackVerticalRaw: 0.5
-knockbackVertical: 0.35
-knockbackSprintHorizontal: 1.1875
-knockbackSprintVertical: 1.0
+knockbackVerticalRaw: 0.69
+knockbackVertical: 0.355
+knockbackSprintHorizontal: 1.1142
+knockbackSprintVertical: 2
 
-groundHorizontalMultiplier: 1.1
-groundVerticalMultiplier: 1
+groundHorizontalMultiplier: 1.15
+groundVerticalMultiplier: 1.0
 
+#DOESNT WORK AS OF NOW dont experiment with it
 frictionHorizontal: 1.0
 frictionVertical: 1.0
 
-speedHorizontal: 0.59
-speedVert: 0.35
-speedSprintMultiplier: 1.0814
+
+speedHorizontal: 0.6
+speedVert: 0.355
+speedSprintMultiplier: 1.03125
 speedGroundHorMultiplier: 1.1
 
-airkbissprintkb: false
+#there are two implementations ive though of but one is too simple other is too lengthy and the lengthone is better and has less chances of bugs
+airkbissprintkb: true
 
-OverrideMaxNoDamageTicks: true
+OverrideMaxNoDamageTicks: false
 DamageTicks: 20
 
 knockbackEnchantincreaseConstant: 1.25

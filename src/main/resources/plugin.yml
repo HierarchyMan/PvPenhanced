@@ -1,4 +1,4 @@
-name: AdvancedKB
+name: PvPenhanced
 version: '${project.version}'
 main: cystol.kb
 authors: [cystol]

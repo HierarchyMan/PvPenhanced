@@ -1,12 +1,5 @@
 package cystol;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -66,6 +59,13 @@ public class playerkb implements Listener {
             if (!(event.getDamager() instanceof Player)) return;
             if (!event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) return;
             Player attacker = (Player) event.getDamager();
+
+            if (plugin.getConfig().getBoolean("airkbissprintkb")) {
+                if (!victim.isOnGround()) {
+                    attacker.setSprinting(true);
+
+                }
+            }
 
 
             double d0 = attacker.getLocation().getX() - victim.getLocation().getX();
@@ -150,7 +150,8 @@ public class playerkb implements Listener {
             }
 
             if (victim.getMaximumNoDamageTicks() > comboMaxNoDamageTicks) {
-            playerKnockbackHashMap.put(victim, playerVelocity);}
+                playerKnockbackHashMap.put(victim, playerVelocity);
+            }
         }
     }
 
@@ -170,7 +171,7 @@ public class playerkb implements Listener {
         speedSprintMultiplier = plugin.getConfig().getDouble("speedSprintMultiplier");
         knockbackEnchantincreaseConstant = plugin.getConfig().getDouble("knockbackEnchantincreaseConstant");
         speedVert = plugin.getConfig().getDouble("speedVert");
-        airkbissprintkb=plugin.getConfig().getBoolean("airkbissprintkb");
-        comboMaxNoDamageTicks=plugin.getConfig().getDouble("combo.MaxNoDamageTicks");
+        airkbissprintkb = plugin.getConfig().getBoolean("airkbissprintkb");
+        comboMaxNoDamageTicks = plugin.getConfig().getDouble("combo.MaxNoDamageTicks");
     }
 }
