@@ -1,33 +1,62 @@
-#KNOCKBACK CONFIGURATION
-knockbackHorizontal: 0.66
-knockbackVertical: 1
-knockbackVerticalLimit: 0.355
-knockbackExtraHorizontal: 0.0
-knockbackExtraVertical: 0.0
+knockbackHorizontal: 0.4
+knockbackVerticalRaw: 0.5
+knockbackVertical: 0.35
+knockbackSprintHorizontal: 1.1875
+knockbackSprintVertical: 1.0
 
-#Horizontal Knockback Multipliers Only
-#Dont ask for vertical ones or ur retarded
-knockbackSpeedMultiplier: 1.83
-kbspeedsprintmultiplier: 1.0
+groundHorizontalMultiplier: 1.1
+groundVerticalMultiplier: 1
 
+frictionHorizontal: 1.0
+frictionVertical: 1.0
 
-#1.16+ option idk who uses this
-enable-knockback-resistance: false
+speedHorizontal: 0.59
+speedVert: 0.35
+speedSprintMultiplier: 1.0814
+speedGroundHorMultiplier: 1.1
 
+airkbissprintkb: false
 
-#Damage Delay In Ticks
-#Disable this if you have other plugins Managing this.
-enable-damage-ticks: true
-max_no_damage_ticks: 20.5
+OverrideMaxNoDamageTicks: true
+DamageTicks: 20
 
-#Bow Boosting fix
-#requires restart or PLUGMAN RELOAD
-bow-boosting-fix: true
-#this can be reloaded this /pvpenhanced reload
-#sometimes might break while reloading so dont reload the plugin IG restart the server
-bowboost-horizontal: 1.75
-bowboost-vertical: 1.25
+knockbackEnchantincreaseConstant: 1.25
 
-#Potion Throw optimiser
-#currently doesnt work
-optimize-pot-throw: true
+straightBowBoost: true
+bowboostHorizontal: 2.3
+bowboostVertical: 1.15
+
+PotionThrowSpeedMultiplier: 1.0
+potoffsetY: -0.35
+potoffsetX: 1.0
+
+comboMaxNoDamageTicks: 10
+combo:
+  MaxNoDamageTicks: 10
+  horizontal: 0.3
+  vertical: 0.1
+  v-limit: 0.2
+  maxComboHeight: 1.5
+
+snowball:
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+egg:
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+arrow:
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+pearl:
+  speedMultipler: 2.0
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+rod:
+  speedMultipler: 2.5
+  override: true
+  horizontal: 0.45
+  vertical: 0.36

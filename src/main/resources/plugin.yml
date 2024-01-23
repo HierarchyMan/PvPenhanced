@@ -1,18 +1,5 @@
-name: PvPenhanced
-version: 0.1
-main: cystol.pvp.Knockback
-authors: [cystol, 69 others]
-description: A not so simple plugin with various random customisations.
-commands:
-  pvpenhanced:
-    description: /pvpenhanced reload - to reload the plugin
-    permission: pvpenhanced.reload
-permissions:
-  pvpenhanced.reload:
-    description: /pvpenhanced reload - to reload the plugin
-    default: op
-  pvpenhanced.*:
-    description: E
-    default: op
-    children:
-      pvpenhanced.reload: true
+name: AdvancedKB
+version: '${project.version}'
+main: cystol.kb
+authors: [cystol]
+description: Knockback plugin that immitates a certain paid spigot

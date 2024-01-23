@@ -1,0 +1,5 @@
+name: AdvancedKB
+version: '0.1'
+main: cystol.kb
+authors: [cystol]
+description: Knockback plugin that immitates a certain paid spigot

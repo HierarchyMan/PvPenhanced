@@ -1,0 +1,62 @@
+knockbackHorizontal: 0.4
+knockbackVerticalRaw: 0.5
+knockbackVertical: 0.35
+knockbackSprintHorizontal: 1.1875
+knockbackSprintVertical: 1.0
+
+groundHorizontalMultiplier: 1.1
+groundVerticalMultiplier: 1
+
+frictionHorizontal: 1.0
+frictionVertical: 1.0
+
+speedHorizontal: 0.59
+speedVert: 0.35
+speedSprintMultiplier: 1.0814
+speedGroundHorMultiplier: 1.1
+
+airkbissprintkb: false
+
+OverrideMaxNoDamageTicks: true
+DamageTicks: 20
+
+knockbackEnchantincreaseConstant: 1.25
+
+straightBowBoost: true
+bowboostHorizontal: 2.3
+bowboostVertical: 1.15
+
+PotionThrowSpeedMultiplier: 1.0
+potoffsetY: -0.35
+potoffsetX: 1.0
+
+comboMaxNoDamageTicks: 10
+combo:
+  MaxNoDamageTicks: 10
+  horizontal: 0.3
+  vertical: 0.1
+  v-limit: 0.2
+  maxComboHeight: 1.5
+
+snowball:
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+egg:
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+arrow:
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+pearl:
+  speedMultipler: 2.0
+  override: true
+  horizontal: 0.4789
+  vertical: 0.36
+rod:
+  speedMultipler: 2.5
+  override: true
+  horizontal: 0.45
+  vertical: 0.36
